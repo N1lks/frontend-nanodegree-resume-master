@@ -1,4 +1,6 @@
 /// <reference path="jQuery.js" />
+/// <reference path="helper.js" />
+
 
 //$("#main").append(299792458 * 100 * 1 / 1000000000 );
 // converte m/s para cm/ns (nanosegundo)
@@ -93,7 +95,7 @@
 
 //---------------------- lets 'GOOOOOOOOOO ----------------------
 
-var wokr = {
+var work = {
     "jobs": [
         {
             "employer": "Casa",
@@ -104,7 +106,7 @@ var wokr = {
         },
         {
             "employer": "ANAPRO",
-            "title": "gestão de vendas",
+            "title": "gestao de vendas",
             "location" : "SP",
             "dates" : "2015-2016",
             "description" : "suporte"
@@ -166,3 +168,35 @@ var education = {
         }
     ]
 }
+
+if (bio.skills != null) {
+    var skillsHeader = HTMLskillsStart;
+    var skills = HTMLskills.replace("%data%", bio.skills);
+    $("#header").append(skillsHeader);
+    $("#skills").append(skills);
+}
+
+for (var i in work.jobs) {
+    $("#workExperience").append(HTMLworkStart);
+    var employer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
+    var title = HTMLworkTitle.replace("%data%", work.jobs[i].title);
+    var employerTitle = employer + title;
+    $(".work-entry:last").append(employerTitle);
+
+    // OK
+    var dates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
+    $(".work-entry:last").append(dates);
+
+    var locations = HTMLworkLocation.replace("%data%", work.jobs[i].location);
+    $(".work-entry:last").append(locations);
+
+    var description = HTMLworkDescription.replace("%data%", work.jobs[i].description);
+    $(".work-entry:last").append(description);
+}
+
+//myObj = { 'country1': 'Germany', 'country2': 'Argentina' };
+//for (key in myObj) {
+//    if (myObj.hasOwnProperty(key)) {
+//        console.log(myObj[key]);
+//    }
+//}
