@@ -1,6 +1,3 @@
-/// <reference path="jQuery.js" />
-/// <reference path="helper.js" />
-
 
 //$("#main").append(299792458 * 100 * 1 / 1000000000 );
 // converte m/s para cm/ns (nanosegundo)
@@ -120,14 +117,21 @@ var projects = {
             "project": "controle de estoque",
             "title": "Estoque",
             "dates": "2015",
-            "description": "",
-            "images" : "images/fry.jpg"
-        }
+            "description": "BLA BLA BLA",
+            "images": "../images/fry.jpg"
+        },
+                {
+                    "project": "xxx X X X X xxx",
+                    "title": "xxx Xxx",
+                    "dates": "XX/XX/XXXX",
+                    "description": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    "images": "../images/fry.jpg"
+                }
     ]
 }
 
 var bio = {
-    "name": "Daniel V.",
+    "name": "Daniel Vasconcelos",
     "role": "Web Developer",
     "contacts": {
         "mobile": "998789183",
@@ -172,27 +176,76 @@ var education = {
 if (bio.skills != null) {
     var skillsHeader = HTMLskillsStart;
     var skills = HTMLskills.replace("%data%", bio.skills);
+    var pic = HTMLbioPic.replace("%data%", "../images/fry.jpg")
     $("#header").append(skillsHeader);
     $("#skills").append(skills);
+    $("#header").append(pic);
 }
 
-for (var i in work.jobs) {
-    $("#workExperience").append(HTMLworkStart);
-    var employer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
-    var title = HTMLworkTitle.replace("%data%", work.jobs[i].title);
-    var employerTitle = employer + title;
-    $(".work-entry:last").append(employerTitle);
+function displayWork()
+{
+    for (var i in work.jobs) {
+        $("#workExperience").append(HTMLworkStart);
+        var employer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
+        var title = HTMLworkTitle.replace("%data%", work.jobs[i].title);
+        var employerTitle = employer + title;
+        $(".work-entry:last").append(employerTitle);
 
-    // OK
-    var dates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
-    $(".work-entry:last").append(dates);
+        // OK
+        var dates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
+        $(".work-entry:last").append(dates);
 
-    var locations = HTMLworkLocation.replace("%data%", work.jobs[i].location);
-    $(".work-entry:last").append(locations);
+        var locations = HTMLworkLocation.replace("%data%", work.jobs[i].location);
+        $(".work-entry:last").append(locations);
 
-    var description = HTMLworkDescription.replace("%data%", work.jobs[i].description);
-    $(".work-entry:last").append(description);
+        var description = HTMLworkDescription.replace("%data%", work.jobs[i].description);
+        $(".work-entry:last").append(description);
+    }
 }
+
+displayWork();
+
+$(document).click(function (loc) {
+    logClicks(loc.pageX,loc.pageY);
+});
+
+
+function inName(name) {
+    var newName = bio.name.split(" ");
+    name = newName[1].toUpperCase + " " + newName[0].toLowerCase;
+    return name;
+}
+
+$("#main").append(internationalizeButton);
+
+function pro() {
+    for (var project in projects.projects) {
+        $("#projects").append(HTMLprojectStart);
+
+        var title = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+        $(".project-entry:last").append(title);
+
+        // OK
+        var dates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+        $(".project-entry:last").append(dates);
+
+        var description = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+        $(".project-entry:last").append(description);
+
+        if (projects.projects[project].images.length > 0) {
+            for (image in projects.projects[project].images) {
+                var formatImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+                $(".project-entry:last").append(formatImage);
+            }
+        }
+    }
+};
+
+pro();
+
+$("#mapDiv").append(googleMap)
+
+
 
 //myObj = { 'country1': 'Germany', 'country2': 'Argentina' };
 //for (key in myObj) {
