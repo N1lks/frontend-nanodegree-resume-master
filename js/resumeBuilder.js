@@ -104,7 +104,7 @@ var work = {
         {
             "employer": "ANAPRO",
             "title": "gestao de vendas",
-            "location" : "SP",
+            "location": "ANAPRO",
             "dates" : "2015-2016",
             "description" : "suporte"
         }
@@ -117,16 +117,16 @@ var projects = {
             "project": "controle de estoque",
             "title": "Estoque",
             "dates": "2015",
-            "description": "BLA BLA BLA",
-            "images": "../images/fry.jpg"
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis lectus odio, sed vestibulum nibh hendrerit ut. Duis finibus auctor feugiat.",
+            "images": "../images/197x148.gif"
         },
-                {
-                    "project": "xxx X X X X xxx",
-                    "title": "xxx Xxx",
-                    "dates": "XX/XX/XXXX",
-                    "description": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-                    "images": "../images/fry.jpg"
-                }
+        {
+            "project": "Lorem Ipsum",
+            "title": "Ipsum",
+            "dates": "31/12/2015",
+            "description": "Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.",
+            "images": "../images/197x148.gif"
+        }
     ]
 }
 
@@ -138,7 +138,7 @@ var bio = {
         "email": "daniel.anapro@gmail.com",
         "github": "N1ilks",
         "twitter": "N/D",
-        "location": "SP-BR"
+        "location": "CEILANDIA BRASILIA"
     },
     "welcomeMessage" : "Bem vindo a minha biografia",
     "skills" : ["awesomeness", "programming", "JS"],
@@ -152,7 +152,7 @@ var education = {
             "degree": "N/D degree",
             "majors": "N/D majors",
             "dates": "2011-2013",
-            "ursal": "N/D url"
+            "url": "N/D url"
         },
         { 
             "name": "CEF 412",
@@ -165,24 +165,37 @@ var education = {
     ],
     "onlineCourses": [
         {
-            "title": "C#",
-            "school": "eib.net",
-            "dates": "2014",
-            "url" : "N/D url"
+            "title": "C# this title",
+            "school": "eib.net this school",
+            "dates": "2014 this dates",
+            "url" : "N/D url this url"
         }
     ]
 }
 
 if (bio.skills != null) {
+    // nome e o que faz
+    var name = HTMLheaderName.replace("%data%", bio.name);
+    $("#header:last").append(name);
+
+    var role = HTMLheaderRole.replace("%data%", bio.role);
+    $("#header:last").append(role);
+
+    // falta incluir contatos
+
+    // skills
     var skillsHeader = HTMLskillsStart;
-    var skills = HTMLskills.replace("%data%", bio.skills);
-    var pic = HTMLbioPic.replace("%data%", "../images/fry.jpg")
     $("#header").append(skillsHeader);
-    $("#skills").append(skills);
+
+    var skills = HTMLskills.replace("%data%", bio.skills);
+    $("#skills:last").append(skills);
+
+    // picture
+    var pic = HTMLbioPic.replace("%data%", "../images/fry.jpg")
     $("#header").append(pic);
 }
 
-function displayWork()
+work.display = function ()
 {
     for (var i in work.jobs) {
         $("#workExperience").append(HTMLworkStart);
@@ -202,8 +215,7 @@ function displayWork()
         $(".work-entry:last").append(description);
     }
 }
-
-displayWork();
+work.display();
 
 $(document).click(function (loc) {
     logClicks(loc.pageX,loc.pageY);
@@ -218,7 +230,7 @@ function inName(name) {
 
 $("#main").append(internationalizeButton);
 
-function pro() {
+projects.display = function () {
     for (var project in projects.projects) {
         $("#projects").append(HTMLprojectStart);
 
@@ -232,24 +244,61 @@ function pro() {
         var description = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
         $(".project-entry:last").append(description);
 
-        if (projects.projects[project].images.length > 0) {
-            for (image in projects.projects[project].images) {
-                var formatImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+        //if (projects.projects[project].images.length > 0) {
+            //for (image in projects.projects[project].images) {
+                var formatImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
                 $(".project-entry:last").append(formatImage);
-            }
-        }
+            //}
+        //}
     }
 };
+projects.display();
 
-pro();
+education.display = function () {
+    for (var school in education.schools) {
+        $("#education").append(HTMLschoolStart);
+
+        var name = HTMLschoolName.replace("%data%", education.schools[school].name);
+        $(".education-entry:last").append(name);
+
+        var degree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+        $(".education-entry:last").append(degree);
+
+        var date = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+        $(".education-entry:last").append(date);
+
+        var location = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+        $(".education-entry:last").append(location);
+
+        var major = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+        $(".education-entry:last").append(major);
+
+        // adding onlineCurses
+        
+
+        //if (projects.projects[project].images.length > 0) {
+        //for (image in projects.projects[project].images) {
+        //var formatImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+        //$(".education-entry:last").append(formatImage);
+        //}
+        //}
+    }
+    for (var onlineCurse in education.onlineCourses) {
+
+
+        var title = HTMLonlineTitle.replace("%data%", education.onlineCourses[onlineCurse].title);
+        $(".education-entry:last").append(title);
+
+        var date = HTMLonlineDates.replace("%data%", education.onlineCourses[onlineCurse].dates);
+        $(".education-entry:last").append(date);
+
+        var school = HTMLonlineSchool.replace("%data%", education.onlineCourses[onlineCurse].school);
+        $(".education-entry:last").append(school);
+
+        var url = HTMLonlineURL.replace("%data%", education.onlineCourses[onlineCurse].url);
+        $(".education-entry:last").append(url);
+    }
+};
+education.display();
 
 $("#mapDiv").append(googleMap)
-
-
-
-//myObj = { 'country1': 'Germany', 'country2': 'Argentina' };
-//for (key in myObj) {
-//    if (myObj.hasOwnProperty(key)) {
-//        console.log(myObj[key]);
-//    }
-//}
